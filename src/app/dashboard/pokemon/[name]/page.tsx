@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 
 interface Props {
-  params: { id: string };
+  params: { name: string };
 }
 
 export async function genereateStaticParams() {
@@ -12,7 +12,7 @@ export async function genereateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { id, name } = await getPokemon(params.id);
+    const { id, name } = await getPokemon(params.name);
 
     return {
       title: `#${id} - ${name}`,
@@ -27,15 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-const getPokemon = async (id: string): Promise<Pokemon> => {
-  const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`, {
+const getPokemon = async (name: string): Promise<Pokemon> => {
+  const pokemon = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`, {
     cache: "force-cache",
   }).then((res) => res.json());
   return pokemon;
 };
 
 export default async function PokemonPage({ params }: Props) {
-  const pokemon = await getPokemon(params.id);
+  const pokemon = await getPokemon(params.name);
 
   return (
     <div className="flex mt-5 flex-col items-center text-slate-800">

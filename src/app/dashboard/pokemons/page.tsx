@@ -1,6 +1,12 @@
 import { PokemonGrid, PokemonsResponse, SimplePokemon } from "@/pokemons";
-import { url } from "inspector";
-import Image from "next/image";
+
+export async function generateMetadata() {
+  return {
+    title: "Listado de Pokémons",
+    description:
+      "Culpa cupidatat ipsum magna reprehenderit ex tempor sint ad minim reprehenderit consequat sit.",
+  };
+}
 
 const getPokemon = async (limit = 20, offset = 0): Promise<SimplePokemon[]> => {
   const data: PokemonsResponse = await fetch(
